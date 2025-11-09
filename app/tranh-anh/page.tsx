@@ -8,6 +8,10 @@ const galleryImages = [
   "/images/anh-2.jpg",
   "/images/z7206694195934_7283fca79e94b531c3a6c288604a67f5.jpg",
   "/images/z7206694195935_8eace772f355e67a324be430b11fafac.jpg",
+  "/images/z7206796959476_9aa29e85a85b8a430851206a659f2774.jpg",
+  "/images/z7206796959491_dcbcdb28e061510ab35f2ddd2c2a5cc4.jpg",
+  "/images/z7206796959492_91776f5a3fa11ff5aa95691b2a9243f7.jpg",
+  "/images/z7206797014488_21b1a9b01c92c6d934112b63c2283c01.jpg"
 ];
 
 export default function TranhAnhPage() {
