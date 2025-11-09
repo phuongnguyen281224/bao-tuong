@@ -47,7 +47,7 @@ export default function RootLayout({
         <main>{children}</main>
         <footer className="mt-16 border-t border-black/5 bg-white/80">
           <div className="max-w-6xl mx-auto px-4 py-6 text-sm text-muted">
-            &copy; {new Date().getFullYear()} Lớp 3 Sao Mai — Báo tường điện tử Next.js.
+            &copy; {new Date().getFullYear()} Lớp 3 Nam Hồng — Báo tường điện tử Next.js.
           </div>
         </footer>
         <BackgroundAudio />
