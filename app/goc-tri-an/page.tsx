@@ -40,7 +40,7 @@ export default function GocTriAnPage() {
       <section className="section-card fun-card text-center">
         <h3 className="text-2xl font-semibold text-ink">Lời kết</h3>
         <p className="text-lg text-ink/85">
-          Cảm ơn thầy cô đã đồng hành cùng lớp 3 Sao Mai. Chúng em xin kính chúc thầy cô thật nhiều sức khỏe để tiếp tục
+          Cảm ơn thầy cô đã đồng hành cùng lớp 3 Nam Hồng. Chúng em xin kính chúc thầy cô thật nhiều sức khỏe để tiếp tục
           gieo chữ, thắp sáng những ước mơ của bao thế hệ học trò.
         </p>
         <p className="text-3xl mt-4">🌟💖🌟</p>

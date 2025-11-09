@@ -30,7 +30,7 @@ export const tableOfContents = [
   },
   {
     title: "Thơ",
-    description: "Bộ sưu tập 11 bài thơ mới nhất của lớp 3 Sao Mai.",
+    description: "Bộ sưu tập 11 bài thơ mới nhất của lớp 3 Nam Hồng.",
     link: "/tho",
   },
   {
@@ -367,7 +367,7 @@ export const chantExchanges = [
   },
   {
     call: "Hò ơi! Ai vẽ đường thẳng tương lai cho lũ trẻ lớp 3?",
-    response: "Cả hội đồng thầy cô Sao Mai, người nâng bước chúng em bay xa.",
+    response: "Cả hội đồng thầy cô Nam Hồng, người nâng bước chúng em bay xa.",
   },
 ];
 
@@ -392,7 +392,7 @@ export const artSlides = [
   {
     title: "Vườn hoa tri ân & Đố nhanh",
     description:
-      "Trình bày sơ đồ vườn hoa – mỗi bông ứng với một phẩm chất học sinh Sao Mai. Kết hợp câu đố: 'Kể tên 3 việc tốt lớp đã làm tuần qua'.",
+      "Trình bày sơ đồ vườn hoa – mỗi bông ứng với một phẩm chất học sinh Nam Hồng. Kết hợp câu đố: 'Kể tên 3 việc tốt lớp đã làm tuần qua'.",
     callouts: [
       "Hoa hướng dương: Tự tin",
       "Hoa lan: Sáng tạo",
