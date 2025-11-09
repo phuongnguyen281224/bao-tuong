@@ -7,7 +7,7 @@ export const heroContent = {
   highlights: [
     "Mở đầu bằng xã luận kể hành trình tri ân",
     "Thơ, hò, vè hòa cùng tiếng trống sân trường",
-    "Tranh vui và góc tri ân lưu giữ ký ức",
+    "Tranh ảnh và góc tri ân lưu giữ ký ức",
     "Lời hứa ngoan ngoãn gửi tới những người lái đò"
   ],
 };
@@ -44,9 +44,9 @@ export const tableOfContents = [
     link: "/ve-lop-em",
   },
   {
-    title: "Tranh vui",
-    description: "Hai slide: tìm trái tim ẩn và vườn hoa tri ân kèm đố nhanh.",
-    link: "/tranh-vui",
+    title: "Tranh ảnh",
+    description: "Album ảnh kỷ niệm và mini game tìm hình yêu thương.",
+    link: "/tranh-anh",
   },
   {
     title: "Góc tri ân",
@@ -393,6 +393,8 @@ export const gratitudeIdeas = {
     },
   ],
 };
+
+
 
 
 

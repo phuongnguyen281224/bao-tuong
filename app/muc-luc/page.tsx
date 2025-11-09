@@ -9,7 +9,7 @@ const emojiMap: Record<string, string> = {
   'Thơ': '🎵',
   'Hò lớp 3': '🥁',
   'Vè lớp em': '🧡',
-  'Tranh vui': '🎨',
+  'Tranh ảnh': '📷',
   'Góc tri ân': '💐',
 };
 
@@ -45,3 +45,4 @@ export default function MucLucPage() {
     </div>
   );
 }
+

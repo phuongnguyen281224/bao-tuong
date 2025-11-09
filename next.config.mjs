@@ -1,7 +1,10 @@
-/** @type {import('next').NextConfig} */
+/** @type {import(''next'').NextConfig} */
 const nextConfig = {
-  output: 'export',   // thay cho npx next export
-  transpilePackages: ['swiper'], // (giữ các cấu hình khác nếu có)
+  output: 'export',
+  transpilePackages: ['swiper'],
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;

@@ -10,7 +10,7 @@ const sections: Array<{ href: string; label: string; icon: string }> = [
   { href: '/tho', label: 'Thơ', icon: '🎵' },
   { href: '/ho-lop-3', label: 'Hò lớp 3', icon: '🥁' },
   { href: '/ve-lop-em', label: 'Vè lớp em', icon: '🧡' },
-  { href: '/tranh-vui', label: 'Tranh vui', icon: '🎨' },
+  { href: '/tranh-anh', label: 'Tranh ảnh', icon: '📷' },
   { href: '/goc-tri-an', label: 'Góc tri ân', icon: '💐' },
 ];
 
@@ -55,3 +55,4 @@ export default function RootLayout({
     </html>
   );
 }
+
