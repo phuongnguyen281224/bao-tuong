@@ -15,8 +15,8 @@ const sections: Array<{ href: string; label: string; icon: string }> = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Báo tường 20/11 - Next.js',
-  description: 'Bộ trang báo tường điện tử lớp 3 Sao Mai, mỗi phần là một trang riêng biệt.',
+  title: 'Báo tường 20/11',
+  description: 'Bộ trang báo tường điện tử khối 3 Nam Hồng, mỗi phần là một trang riêng biệt.',
 };
 
 export default function RootLayout({
@@ -47,7 +47,7 @@ export default function RootLayout({
         <main>{children}</main>
         <footer className="mt-16 border-t border-black/5 bg-white/80">
           <div className="max-w-6xl mx-auto px-4 py-6 text-sm text-muted">
-            &copy; {new Date().getFullYear()} Lớp 3 Nam Hồng — Báo tường điện tử Next.js.
+            &copy; {new Date().getFullYear()} Khối 3 Nam Hồng — Báo tường điện tử.
           </div>
         </footer>
         <BackgroundAudio />

@@ -1,5 +1,5 @@
 export const heroContent = {
-  badge: "20/11 • Lớp 3 Sao Mai",
+  badge: "20/11 • Ngày Nhà Giáo Việt Nam",
   title: "Báo tường điện tử tri ân thầy cô",
   subtitle: "Những trang văn bé nhỏ thắp sáng Ngày Nhà Giáo Việt Nam",
   message:
@@ -60,7 +60,7 @@ export const editorialSections = [
     heading: "Lời mở đầu",
     detail: "Sân trường khi bình minh",
     paragraphs: [
-      "Tiếng trống đầu ngày vang lên, lớp 3 Sao Mai ùa vào lớp như đàn chim nhỏ. Chúng em thấy thầy cô đã đứng đó với ánh mắt hiền, tay cầm viên phấn trắng sáng như vì sao trong buổi sớm.",
+      "Tiếng trống đầu ngày vang lên, lớp 3 Nam Hồng ùa vào lớp như đàn chim nhỏ. Chúng em thấy thầy cô đã đứng đó với ánh mắt hiền, tay cầm viên phấn trắng sáng như vì sao trong buổi sớm.",
       "Bài xã luận này là lời cảm ơn gửi đến những người thay cha mẹ dìu dắt chúng em, để mỗi ngày đến trường đều là một ngày vui đúng nghĩa.",
     ],
   },

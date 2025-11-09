@@ -9,23 +9,26 @@ export function BackgroundAudio() {
     const audio = audioRef.current;
     if (!audio) return;
     audio.volume = 0.3;
-    const play = async () => {
+    audio.loop = true;
+
+    const resume = async () => {
       try {
         await audio.play();
-      } catch (error) {
-        // Autoplay có thể bị chặn; khi người dùng tương tác sẽ phát.
+      } catch (err) {
+        // Autoplay có thể bị chặn; sẽ phát khi người dùng tương tác.
       }
     };
-    play();
+
+    resume();
   }, []);
 
   return (
     <audio
       ref={audioRef}
       src="/Download.mp3"
+      preload="auto"
       autoPlay
       loop
-      preload="auto"
       className="hidden"
     />
   );
