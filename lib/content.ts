@@ -57,28 +57,53 @@ export const tableOfContents = [
 
 export const editorialSections = [
   {
-    heading: "Lời mở đầu",
-    detail: "Sân trường khi bình minh",
+    heading: "Xã luận 20/11 hay nhất về thầy cô và mái trường",
+    detail: "Những kỷ niệm đầu tiên",
+    image: "https://image.dienthoaivui.com.vn/x,webp,q90/https://dashboard.dienthoaivui.com.vn/uploads/dashboard/editor_upload/xa-luan-20-11-1.jpg",
     paragraphs: [
-      "Tiếng trống đầu ngày vang lên, lớp 3 Nam Hồng ùa vào lớp như đàn chim nhỏ. Chúng em thấy thầy cô đã đứng đó với ánh mắt hiền, tay cầm viên phấn trắng sáng như vì sao trong buổi sớm.",
-      "Bài xã luận này là lời cảm ơn gửi đến những người thay cha mẹ dìu dắt chúng em, để mỗi ngày đến trường đều là một ngày vui đúng nghĩa.",
+      "Tựa như bài xã luận mở đầu trên Điện Thoại Vui, chúng em kể về mái trường thân yêu nơi tiếng trống ngân vang kéo theo bao ký ức. Ở đó, thầy cô là người giữ nắng, giữ gió để mỗi sáng đến lớp đều hóa thành ngày hội nhỏ.",
+      "Những giờ chào cờ, những lần lau bảng, từng chiếc ghế xếp ngay ngắn – tất cả đều có bóng dáng thầy cô dìu dắt. Bài viết nhắc chúng em không chỉ nhớ lời giảng, mà còn nhớ cách thầy cô đã sống rất đẹp giữa mái trường này.",
+      "Nhân 20/11, lớp 3 xin ghi lại câu chuyện ấy như một lời tri ân: cảm ơn thầy cô đã biến trường học thành mái nhà thứ hai, nâng bước bao thế hệ học trò."
     ],
   },
   {
-    heading: "Hành trình học tập",
-    detail: "Những giờ văn – toán – nhạc",
+    heading: "Xã luận báo tường hay ngắn gọn nhất 20/11",
+    detail: "Thông điệp nhỏ mà sâu",
+    image: "https://image.dienthoaivui.com.vn/x,webp,q90/https://dashboard.dienthoaivui.com.vn/uploads/dashboard/editor_upload/xa-luan-20-11-02.jpg",
     paragraphs: [
-      "Có lúc chữ viết chưa tròn, phép toán còn sai, nhưng thầy cô kiên nhẫn sửa từng nét, từng dòng. Chúng em học được rằng sai cũng là bước đệm để tốt hơn.",
-      "Giờ hoạt động trải nghiệm, chúng em hóa thân thành phóng viên nhí, tìm hiểu câu chuyện đứng lớp của thầy cô và viết lại bằng chính cảm xúc của mình.",
+      "Bài xã luận thứ hai gợi nhắc chúng em rằng đôi khi lời tri ân không cần dài dòng. Một bông hoa bằng giấy, một câu “con chào cô” trước khi vào lớp cũng đủ làm bầu trời rực rỡ.",
+      "Chúng em chọn viết ngắn gọn nhưng chân thành: thầy cô là người gieo chữ, chúng em nguyện chăm tưới để chữ nở thành hoa. Khi mỗi bạn giữ lời hứa nhỏ, trang báo tường sẽ sáng lên bằng chính hành động ấy.",
+      "Xin dành bài viết ngắn này để nói rằng: thầy cô ơi, chúng con luôn nghe lời và sẽ cố gắng mỗi ngày để đáp lại tình thương mộc mạc."
     ],
   },
   {
-    heading: "Cam kết của lớp",
-    detail: "Ba hành động cụ thể",
+    heading: "Bài xã luận về ngày 20/11: Ăn quả nhớ kẻ trồng cây",
+    detail: "Đạo lý được nhắc lại",
+    image: "https://image.dienthoaivui.com.vn/x,webp,q90/https://dashboard.dienthoaivui.com.vn/uploads/dashboard/editor_upload/xa-luan-20-11-2.jpg",
     paragraphs: [
-      "Giữ góc học tập gọn gàng, nói lời cảm ơn và xin lỗi đúng lúc.",
-      "Đọc sách 15 phút mỗi tối, chia sẻ kiến thức mình hiểu cho bạn ngồi cạnh.",
-      "Mỗi tuần viết một tấm thiệp nhỏ gửi đến một thầy cô mà mình muốn tri ân.",
+      "Tựa đề thứ ba là lời nhắn gửi quen thuộc: ăn quả nhớ kẻ trồng cây. Bằng lời văn dung dị, bài viết kể về những chiếc lá non được thầy cô tưới tắm để rồi lớn lên xanh tốt.",
+      "Lớp 3 viết lại theo cách của mình: mỗi trang vở đẹp là trái ngọt, mỗi tấm giấy khen là bông hoa. Đằng sau trái ngọt ấy là công sức âm thầm của thầy cô, vậy nên chúng em sẽ nâng niu từng thành quả nhỏ.",
+      "Ngày tri ân, chúng em dâng tặng thầy cô trái ngọt đầu mùa – là sự tiến bộ của chính mình – như minh chứng cho đạo lý tốt đẹp cha ông để lại."
+    ],
+  },
+  {
+    heading: "Xã luận 20/11: Cánh buồm tri thức",
+    detail: "Vượt sóng cùng thầy cô",
+    image: "https://image.dienthoaivui.com.vn/x,webp,q90/https://dashboard.dienthoaivui.com.vn/uploads/dashboard/editor_upload/xa-luan-20-11-03.jpg",
+    paragraphs: [
+      "Bài thứ tư ví thầy cô như cánh buồm tri thức đưa con thuyền học trò ra khơi. Lớp 3 tưởng tượng mình là những giọt nước đồng hành, dẫu sóng lớn nhưng luôn tin vào tay lái của thầy cô.",
+      "Chúng em ghi vào xã luận những ngày tập đọc khó nhằn, những bài toán đầu tiên, những giờ học nhạc rung rinh – tất cả là hải trình tuyệt đẹp. Cánh buồm ấy vẫn đang no gió, chở ước mơ của chúng em tiến xa.",
+      "Xin hứa sẽ chèo cùng thầy cô, không bỏ cuộc giữa biển khơi tri thức rộng lớn."
+    ],
+  },
+  {
+    heading: "Xã luận 20/11 ngắn nhất: Công ơn thầy cô",
+    detail: "Lời nhắc cuối",
+    image: "https://image.dienthoaivui.com.vn/x,webp,q90/https://dashboard.dienthoaivui.com.vn/uploads/dashboard/editor_upload/xa-luan-20-11-3.jpg",
+    paragraphs: [
+      "Bài cuối trong danh sách Điện Thoại Vui gói gọn trong hai chữ “công ơn”. Lớp 3 chuyển hóa thành những dòng cảm xúc: công ơn ấy hiện diện trong từng bước nhỏ thầy cô dạy ta đi, từng tiếng Việt tròn vành rõ chữ.",
+      "Dù ngắn, bài viết vẫn nhấn mạnh rằng công ơn đó suốt đời không trả hết. Món quà đẹp nhất chính là sự trưởng thành và lòng biết ơn không phai.",
+      "Chúng em xin ghi nhớ và viết tiếp trang báo tường bằng niềm kính yêu sâu sắc dành cho thầy cô."
     ],
   },
 ];
@@ -393,6 +418,10 @@ export const gratitudeIdeas = {
     },
   ],
 };
+
+
+
+
 
 
 
