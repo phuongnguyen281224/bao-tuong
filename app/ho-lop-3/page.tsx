@@ -1,169 +1,231 @@
-import { chantExchanges } from '../../lib/content';
+'use client';
+
+import { useEffect, useState } from 'react';
 import { PageHeading } from '../../components/PageHeading';
 
-const prepChecklist = [
+const chantSequences = [
   {
-    title: 'Chuẩn bị không gian',
-    description: 'Xếp hai hàng đôi đối diện để tạo hiệu ứng gọi-đáp rõ nét.',
-    cue: 'Bạn MC đứng giữa làm mốc gọi.',
+    title: 'Trống mở màn',
+    call: 'Hò ơ! Ai đánh thức bình minh bằng tiếng trống đầu tiên?',
+    response: 'Là thầy Tổng phụ trách gọi lớp 3 xếp hàng ngay ngắn, nâng cao cờ tri ân.',
   },
   {
-    title: 'Khởi động 30 giây',
-    description: 'Cả lớp hít thở, gõ nhẹ trên vai bạn cùng lúc để tạo nhiệt.',
-    cue: 'Đếm 1-2-3 và kéo cao âm "Hò ơi".',
+    title: 'Khúc phấn trắng',
+    call: 'Hò ơ! Ai vẽ nụ cười lên bảng đen buổi sớm?',
+    response: 'Là cô chủ nhiệm nắn nót từng nét chữ, gửi yêu thương vào từng trang vở.',
   },
   {
-    title: 'Chia nhóm vai',
-    description: 'Tách lớp thành nhóm Dẫn Gọi, Dẫn Đáp và nhóm gõ tay để giữ nhịp.',
-    cue: 'Ghi chú tên nhóm trên bảng phụ.',
+    title: 'Lời ru sân trường',
+    call: 'Hò ơ! Ai đưa giấc mơ tuổi nhỏ trôi trên dòng đồng dao?',
+    response: 'Là cả tập thể thầy cô Nam Hồng, nâng chúng con qua mỗi giờ tập đọc.',
   },
   {
-    title: 'Thống nhất ký hiệu',
-    description: 'Dùng cú chạm tay lên vai là tín hiệu đổi giọng, vạch tay lên cao là kết thúc.',
-    cue: 'Tập mẫu trước 1 lượt cho cả lớp nhìn thấy.',
-  },
-];
-
-const beatPatterns = [
-  {
-    name: 'Sóng biển 4 nhịp',
-    count: 'Bùm - chát / Bùm - chát',
-    tip: 'Gõ vào đầu mỗi phách lớn, tiếp bằng cách đập ngực tay trái để giữ âm tròn.',
+    title: 'Điệu hò đồng hành',
+    call: 'Hò ơ! Ai ghép bàn tay bé vào bản nhạc toán học?',
+    response: 'Là cô Toán dịu dàng, biến phép chia thành bài múa vui tươi.',
   },
   {
-    name: 'Sợi dây 3-3-2',
-    count: '1-2-3 / 1-2-3 / 1-2',
-    tip: 'Phù hợp cho câu hỏi kéo dài, đối đáp sẽ bật cười do 2 phách cuối ngắn.',
+    title: 'Khúc hò sân cỏ',
+    call: 'Hò ơ! Ai chở gió heo may đến buổi thể dục?',
+    response: 'Thầy thể dục reo trống, nhắc lớp mình khỏe mạnh để tri ân thầy cô.',
   },
   {
-    name: 'Nhanh chân 2-2-1',
-    count: 'Ta-ta / ta-ta / ta',
-    tip: 'Dùng khi muốn chuyển sang câu khẩu hiệu có nhiệt độ cao.',
+    title: 'Lời hứa cuối',
+    call: 'Hò ơ! Ai gom những điều ước vào bó hoa giấy?',
+    response: 'Chính chúng con, hứa học giỏi ngoan hiền để đáp lại công ơn dưỡng dạy.',
   },
 ];
 
-const roleIdeas = [
+const riverStories = [
   {
-    role: 'Nhóm gõ tay',
-    responsibility: 'Đứng ở hai cánh sân khấu, tạo nhạc nền như những người phụ trợ dân ca.',
-    line: 'Hiệu ứng: gõ 2 lần trước khi cả lớp đáp.',
+    title: 'Dòng sông phấn trắng',
+    details: [
+      'Mỗi đường phấn là một con thuyền chở kí ức về những bài học đầu đời.',
+      'Cứ 20/11, dòng sông sáng hơn bởi bao lời chúc viết bằng nét chữ tròn trịa.',
+    ],
   },
   {
-    role: 'Nhóm nhập vai',
-    responsibility: 'Dẫn nhập từng câu hỏi, có thể cầm nón lá hét để tăng vui.',
-    line: 'Hiệu ứng: thêm câu giới thiệu ngắn trước mỗi lượt.',
+    title: 'Cơn gió nhịp trống',
+    details: [
+      'Tiếng trống trường được ví như nhịp tim đồng điệu, thúc giục ta tiến lên.',
+      'Những cú chạm “tùng… tùng” hóa thành nhịp nền cho câu hò thêm khỏe.',
+    ],
   },
   {
-    role: 'Bạn đọc lời chốt',
-    responsibility: 'Cuối mỗi lượt, bạn này nhắc lại thông điệp tri ân bằng giọng rõ ràng.',
-    line: 'Hiệu ứng: giữ đều nhịp bấm, không lên giọng to hơn MC.',
+    title: 'Ánh đèn sân khấu nhỏ',
+    details: [
+      'Thầy cô là đạo diễn kiên nhẫn, giúp mỗi bạn học sinh tự tin khi đứng đọc hò.',
+      'Đèn led học trò tự làm lung linh hơn khi câu chuyện tri ân được ngân lên.',
+    ],
   },
 ];
 
-const closingChants = [
+const teacherEchoes = [
   {
-    title: 'Lời cảm ơn nhanh',
-    lyric: '"Cảm ơn thầy cô đã dẫn bước chúng con"',
-    action: 'Cả lớp nối tay tạo vòng cung.',
+    name: 'Tiếng phấn của cô Hạnh',
+    echo: '“Hò ơ… nét phấn trắng thành dòng sông kiến thức.”',
+    meaning: 'Cô bảo rằng mỗi bài hò cũng cần nhấn nhá như lúc luyện chữ đẹp.',
+    icon: '🧑‍🏫',
   },
   {
-    title: 'Nhận lời hứa',
-    lyric: '"Chúng con hứa giữ nhịp học chăm ngoan"',
-    action: 'Tất cả đưa tay lên vai bạn bên cạnh.',
+    name: 'Nhịp trống thầy Phúc',
+    echo: '“Hò ơ… trống vang – lòng càng quyết tâm.”',
+    meaning: 'Thầy nhắc lớp giữ nhịp 2/4 để tiếng hò chắc và rộn ràng.',
+    icon: '🥁',
   },
   {
-    title: 'Khẩu hiệu kết',
-    lyric: '"20/11 rạng rỡ, lớp 3 sẵn sàng!"',
-    action: 'Dàn đập 3 lần và cười tươi để kết thúc.',
+    name: 'Nụ cười cô Lan',
+    echo: '“Hò ơ… cười lên cho câu hò thêm ấm.”',
+    meaning: 'Cô chia sẻ rằng nụ cười chính là hoạt ảnh đẹp nhất trên sân khấu.',
+    icon: '😊',
+  },
+  {
+    name: 'Lời nhắn thầy Minh',
+    echo: '“Hò ơ… nhớ lắng nghe nhau như nghe tiếng gió.”',
+    meaning: 'Thầy muốn các nhóm gọi – đáp thật hài hòa, nhường nhau trong từng nhịp.',
+    icon: '🌬️',
   },
 ];
+
+const gratitudeRefrain = [
+  'Hò ơ… kính chúc thầy cô bình an như sông dài vỗ nhịp.',
+  'Hò ơ… mong thầy cô rạng rỡ như nắng mai phủ đầy sân.',
+  'Hò ơ… lớp 3 hứa học chăm, giữ trọn câu hò hôm nay sáng mãi.',
+];
+
+const sparklingBadges = ['🌊', '🎶', '🌺', '📯', '🎇', '🌈'];
 
 export default function HoLopBaPage() {
+  const [activeChantIndex, setActiveChantIndex] = useState(0);
+  const [activeEcho, setActiveEcho] = useState(teacherEchoes[0]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveChantIndex((prev) => (prev + 1) % chantSequences.length);
+    }, 4800);
+    return () => clearInterval(timer);
+  }, []);
+
+  const activeChant = chantSequences[activeChantIndex];
+
   return (
-    <div className="page-shell">
+    <div className="page-shell space-y-8">
       <PageHeading
         badge="Trang 05"
         title="Hò lớp 3"
-        subtitle="Gọi - đáp theo nhịp dân ca"
-        description="MC đọc phần gọi, cả lớp đáp lại hoặc chia thành hai nhóm đối đáp. Có thể gõ nhịp trên bàn tay để tạo không khí."
+        subtitle="Điệu hò tri ân 20/11"
+        description="Kho tàng câu hò và lời hứa lung linh của lớp 3 Nam Hồng dành tặng thầy cô."
         icon="🥁"
       />
 
       <section className="section-card fun-card">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">Khởi động</p>
-        <h2 className="text-2xl font-semibold text-ink">Lên khung hò từ những bước đơn giản</h2>
-        <p className="text-ink/80 leading-relaxed">
-          Các bạn chỉ cần 4 bước ngắn gọn để buổi hò có chiều sâu cảm xúc. Đọc theo danh sách, dán màu ghi chú
-          và đánh dấu ai phụ trách từng công việc.
-        </p>
-        <div className="grid gap-4 md:grid-cols-2 mt-4">
-          {prepChecklist.map((item) => (
-            <div key={item.title} className="rounded-2xl border border-black/5 bg-white/70 p-4 shadow-card">
-              <h3 className="font-semibold text-lg text-ink">{item.title}</h3>
-              <p className="text-sm text-ink/80 leading-relaxed">{item.description}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-muted mt-3">Hiệu lệnh: {item.cue}</p>
-            </div>
-          ))}
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">Sân khấu hò sống động</p>
+        <div className="grid gap-6 md:grid-cols-[2fr,1fr]">
+          <div className="rounded-3xl border border-brand-sky/30 bg-white/80 p-6 shadow-card transition-all duration-500">
+            <p className="text-sm uppercase tracking-[0.3em] text-brand-sky">{activeChant.title}</p>
+            <p className="text-2xl font-semibold text-ink mt-4 animate-pulse">{activeChant.call}</p>
+            <p className="text-lg text-ink/80 leading-relaxed mt-3">{activeChant.response}</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            {chantSequences.map((chant, index) => {
+              const isActive = index === activeChantIndex;
+              return (
+                <button
+                  key={chant.title}
+                  type="button"
+                  onClick={() => setActiveChantIndex(index)}
+                  aria-pressed={isActive}
+                  className={`rounded-2xl border px-4 py-3 text-left transition-all duration-300 focus-visible:ring-2 focus-visible:ring-brand-sky/70 ${
+                    isActive
+                      ? 'border-brand-sky bg-white shadow-brand-sky/30 shadow-lg -translate-y-0.5'
+                      : 'border-brand-sky/30 bg-white/70 hover:-translate-y-0.5'
+                  }`}
+                >
+                  <p className="font-semibold text-ink">{chant.title}</p>
+                  <p className="text-sm text-ink/70 line-clamp-2">{chant.call}</p>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      <section className="section-card fun-card bg-gradient-to-br from-brand-sky/5 to-white">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">Nhịp gõ tay</p>
-        <h2 className="text-2xl font-semibold text-ink">Công thức bấm nhịp để cả lớp bắt sóng</h2>
+      <section className="section-card fun-card bg-gradient-to-br from-brand-sun/10 via-white to-white">
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">Bộ sưu tập câu hò</p>
         <div className="grid gap-4 md:grid-cols-3 mt-4">
-          {beatPatterns.map((pattern) => (
-            <div key={pattern.name} className="rounded-2xl border border-dashed border-brand-sky/40 p-4 bg-white/80">
-              <p className="text-xs uppercase tracking-[0.3em] text-brand-sky">{pattern.name}</p>
-              <p className="text-lg font-semibold text-ink mt-1">{pattern.count}</p>
-              <p className="text-sm text-ink/80 leading-relaxed mt-2">{pattern.tip}</p>
+          {chantSequences.map((chant, index) => (
+            <div key={`${chant.title}-${index}`} className="rounded-2xl border border-brand-sun/30 bg-white/85 p-4 shadow-card">
+              <p className="text-sm uppercase tracking-[0.3em] text-brand-sun">Lượt {index + 1}</p>
+              <p className="text-base font-semibold text-ink mt-2">{chant.call}</p>
+              <p className="text-sm text-ink/80 mt-2">{chant.response}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="section-card fun-card">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">Nội dung chính</p>
-        <h2 className="text-2xl font-semibold text-ink">3 lượt hò chủ đạo của lớp 3</h2>
-        <div className="grid gap-4 md:grid-cols-2 mt-4">
-          {chantExchanges.map((item, index) => (
-            <div
-              key={item.call}
-              className="section-card fun-card bg-gradient-to-br from-brand-sky/10 to-white flex flex-col gap-3"
-            >
-              <p className="text-xs uppercase tracking-[0.3em] text-muted">Lượt {index + 1}</p>
-              <p className="font-semibold text-brand-sky text-lg">{item.call}</p>
-              <p className="text-ink/90 leading-relaxed">{item.response}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="section-card fun-card">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">Phân việc</p>
-        <h2 className="text-2xl font-semibold text-ink">Mỗi nhóm một vai trò</h2>
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">Điệu hò kể chuyện</p>
         <div className="grid gap-4 md:grid-cols-3 mt-4">
-          {roleIdeas.map((role) => (
-            <div key={role.role} className="rounded-2xl border border-black/5 bg-white/80 p-4 shadow-card">
-              <h3 className="text-lg font-semibold text-ink">{role.role}</h3>
-              <p className="text-sm text-ink/80 leading-relaxed">{role.responsibility}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-muted mt-3">{role.line}</p>
+          {riverStories.map((story) => (
+            <div key={story.title} className="rounded-2xl border border-black/5 bg-white/80 p-4 shadow-card">
+              <p className="text-xs uppercase tracking-[0.3em] text-brand-forest">{story.title}</p>
+              <ul className="mt-3 space-y-2 text-sm text-ink/85">
+                {story.details.map((detail) => (
+                  <li key={detail} className="flex items-start gap-2">
+                    <span className="text-brand-forest">✦</span>
+                    <span>{detail}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="section-card fun-card bg-gradient-to-br from-brand-sun/15 to-white">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">Kết trang hò</p>
-        <h2 className="text-2xl font-semibold text-ink">Chốt lại bằng lời cảm ơn ngắn</h2>
-        <div className="space-y-4 mt-4">
-          {closingChants.map((item) => (
-            <div key={item.title} className="rounded-2xl border border-brand-sun/30 bg-white/80 p-4">
-              <p className="text-sm uppercase tracking-[0.3em] text-brand-sun">{item.title}</p>
-              <p className="text-lg font-semibold text-ink mt-1">{item.lyric}</p>
-              <p className="text-sm text-ink/80 leading-relaxed mt-2">Động tác gợi ý: {item.action}</p>
-            </div>
+      <section className="section-card fun-card bg-gradient-to-br from-brand-violet/10 to-white">
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">Tiếng vọng thầy cô</p>
+        <div className="grid gap-6 md:grid-cols-[1.2fr,1fr] mt-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            {teacherEchoes.map((echo) => {
+              const isActive = activeEcho.name === echo.name;
+              return (
+                <button
+                  key={echo.name}
+                  type="button"
+                  onClick={() => setActiveEcho(echo)}
+                  aria-pressed={isActive}
+                  className={`rounded-2xl border p-4 text-left transition-all duration-300 focus-visible:ring-2 focus-visible:ring-brand-violet/60 ${
+                    isActive
+                      ? 'border-brand-violet bg-white shadow-brand-violet/30 shadow-lg -translate-y-1'
+                      : 'border-brand-violet/30 bg-white/70 hover:-translate-y-1'
+                  }`}
+                >
+                  <p className="text-xl">{echo.icon}</p>
+                  <p className="font-semibold text-ink mt-2">{echo.name}</p>
+                  <p className="text-sm text-ink/80 mt-1">{echo.echo}</p>
+                </button>
+              );
+            })}
+          </div>
+          <div className="rounded-3xl border border-brand-violet/30 bg-white/80 p-6 shadow-inner" aria-live="polite">
+            <p className="text-xs uppercase tracking-[0.3em] text-brand-violet/80">Thông điệp đang phát</p>
+            <p className="text-lg text-ink/90 leading-relaxed mt-3">{activeEcho.meaning}</p>
+            <p className="text-4xl mt-4 animate-bounce">{activeEcho.icon}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-card fun-card text-center">
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">Điệp khúc tri ân</p>
+        <div className="space-y-3 text-lg text-ink/85 mt-4">
+          {gratitudeRefrain.map((line, index) => (
+            <p key={line} className="flex items-center justify-center gap-2">
+              <span className="text-2xl animate-spin">{sparklingBadges[index % sparklingBadges.length]}</span>
+              {line}
+            </p>
           ))}
         </div>
+        <p className="text-3xl mt-6">🎶🌺🎶</p>
       </section>
     </div>
   );

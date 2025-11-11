@@ -1,168 +1,236 @@
-import { veLines } from '../../lib/content';
+'use client';
+
+import { useEffect, useState } from 'react';
 import { PageHeading } from '../../components/PageHeading';
 
-const warmupSteps = [
+const vePrelude = [
+  'Gió mùa hiền như bàn tay thầy gỡ rối cho từng phép tính.',
+  'Sân trường reo tiếng lá như trống nhỏ mở hội tri ân.',
+  'Chúng con xếp hàng đọc vè, mời thầy cô dừng bước lắng nghe.',
+  'Mỗi vần thơ là một bó hoa giấy vừa gấp xong trong giờ thủ công.',
+];
+
+const veChapters = [
   {
-    title: 'Khởi động giọng đọc',
-    description: 'Hít sâu 4 nhịp, giữ lưng thẳng và đọc thử 1 câu vè nhỏ để làm nóng khẩu hình.',
-    cue: '60 giây lấy hơi',
+    title: 'Khổ vè tri ân',
+    lines: [
+      'Vè kể lớp em rực rỡ cờ hoa,',
+      'Bảng đen tím thẫm, phấn sa như mưa.',
+      'Thầy cô đứng đó dịu vừa,',
+      'Nâng từng tiếng đọc cho mùa 20.',
+    ],
+    color: 'sun',
   },
   {
-    title: 'Tìm nhịp chung',
-    description: 'Cả lớp gõ 2/4 bằng cách chạm tay vào bàn – đùi – bàn – đùi để quen cảm giác nhịp.',
-    cue: 'Nhịp 2/4 đều',
+    title: 'Khổ vè lời hứa',
+    lines: [
+      'Vè dặn chúng em chăm chỉ,',
+      'Viết chữ tròn như chiếc trống đồng.',
+      'Mai lớn chớ quên cội nguồn,',
+      'Đem điều tốt đẹp về dâng thầy.',
+    ],
+    color: 'forest',
   },
   {
-    title: 'Chọn cảm xúc',
-    description: 'Mỗi nhóm nói nhanh từ khóa thể hiện tinh thần (tự hào, vui tươi, đáng yêu) và ghi lên bảng.',
-    cue: 'Ghi chú màu',
+    title: 'Khổ vè niềm vui',
+    lines: [
+      'Vè cười giòn như kẹo lạc,',
+      'Tiết sinh hoạt rộn nhạc bạn bè.',
+      'Lấp lánh mắt trông cô về,',
+      'Nắm tay múa vè bên khóm cúc.',
+    ],
+    color: 'violet',
   },
   {
-    title: 'Duyệt đội hình',
-    description: 'Sắp xếp 4 bạn đọc chính đứng zíc zắc, các bạn phụ họa đứng vòng cung phía sau.',
-    cue: '1 phút chỉnh đội hình',
+    title: 'Khổ vè ước mơ',
+    lines: [
+      'Vè bay qua thềm cửa lớp,',
+      'Ươm hạt giống thành những giấc mơ xanh.',
+      'Nguyện theo bước chân hiền lành,',
+      'Cho bài vè hóa thành chuyến tàu tri thức.',
+    ],
+    color: 'sky',
   },
 ];
 
-const expressionIdeas = [
+const veDialogues = [
   {
-    title: 'Song ca vè – họa',
-    detail: 'Một bạn đọc, một bạn “vẽ” động tác theo từng câu để minh họa nội dung.',
-    action: 'Kết thúc bằng động tác tạo hình trái tim lớn.',
+    speaker: 'Bạn MC',
+    quote: '“Chúng ta đọc vè bằng cả trái tim nhé!”',
+    mood: '🎤',
+    detail: 'Bạn MC hướng dẫn nhịp 2/4 và gợi ý mỉm cười suốt bài.',
   },
   {
-    title: 'Tăng tốc theo nhịp trống',
-    detail: 'Sau mỗi câu, cả lớp gõ tay vào mặt bàn 2 lần để tạo điểm nhấn dồn dập.',
-    action: 'Giữ nhịp ổn định bằng tiếng đếm nhỏ 1-2.',
+    speaker: 'Bạn Thu',
+    quote: '“Cho tớ làm tiếng trống phụ họa nha!”',
+    mood: '🥁',
+    detail: 'Thu dùng hộp bút tạo âm “tích tắc”, giúp bài vè thêm sinh động.',
   },
   {
-    title: 'Góc kể chuyện',
-    detail: 'Biến mỗi câu vè thành một mẩu chuyện mini về kỉ niệm cùng thầy cô.',
-    action: 'Dùng bảng flip nhỏ để đổi hình minh họa.',
-  },
-];
-
-const pledgeCards = [
-  {
-    title: 'Thi đua học giỏi',
-    statement: 'Mỗi tuần hoàn thành bài tập về nhà đúng hạn và trình bày sạch đẹp.',
-    reminder: 'Dán sticker ngôi sao khi cả nhóm thực hiện đủ.',
+    speaker: 'Cô giáo',
+    quote: '“Mỗi câu vè là một món quà nhỏ.”',
+    mood: '💖',
+    detail: 'Cô động viên cả lớp giữ giọng rõ, gửi thông điệp thật thà.',
   },
   {
-    title: 'Lan tỏa yêu thương',
-    statement: 'Luôn nói lời cảm ơn, xin phép và giúp đỡ bạn bè trong lớp.',
-    reminder: 'Cuối ngày ghi lại 1 việc tốt vào sổ chung.',
-  },
-  {
-    title: 'Giữ nề nếp',
-    statement: 'Xếp hàng ngay ngắn, trực nhật đúng ca và giữ lớp học thơm tho.',
-    reminder: 'Treo bảng “Lớp 3 điểm 10 kỉ luật” ở cửa.',
+    speaker: 'Bạn Nam',
+    quote: '“Đọc vè xong mình kể chuyện vui nhé!”',
+    mood: '📚',
+    detail: 'Nam gợi ý nối tiếp bằng việc tặng sách handmade cho thầy cô.',
   },
 ];
 
-const miniChallenges = [
+const veMiniScenes = [
   {
-    name: 'Vè tốc độ',
-    goal: 'Đọc liền mạch 4 câu mà vẫn rõ từng vần “em/om/ong”.',
-    reward: 'Nhận huy hiệu “Miệng vàng lớp 3”.',
+    title: 'Nhịp vỗ tay cầu vồng',
+    description: 'Cả lớp vỗ tay theo nhịp nhanh-dừng-nhanh, tạo hiệu ứng như ánh đèn.',
+    emoji: '🌈',
   },
   {
-    name: 'Đổi vai chớp mắt',
-    goal: 'Mỗi câu vè đổi người đọc nhưng vẫn giữ đúng nhịp 2/4.',
-    reward: 'Cả nhóm được cộng 10 điểm thi đua.',
+    title: 'Hoa giấy chuyển động',
+    description: 'Ba bạn xoay bó hoa giấy theo vòng tròn khi câu vè nhắc đến ước mơ.',
+    emoji: '🌸',
   },
   {
-    name: 'Hát hóa vè',
-    goal: 'Phổ nhạc câu cuối theo giai điệu quen thuộc rồi mời cả lớp hát lại.',
-    reward: 'Thêm 1 lượt chơi mini-game ở tiết sinh hoạt.',
+    title: 'Màn hình sao đêm',
+    description: 'Chiếu đèn pin lên trần tạo chùm sao khi câu vè nói về tương lai.',
+    emoji: '🌌',
   },
 ];
 
-const lineBadges = ['🌱', '📚', '🎨', '🌟'];
+const closingChimes = [
+  'Vè đọc xong mà lòng còn luyến nhớ, kính chúc thầy cô luôn an yên.',
+  'Xin gửi lời hẹn gặp lại trong những mùa 20/11 tiếp theo.',
+  'Lớp 3 Nam Hồng hứa giữ mãi tiếng vè này trong ngăn bàn kí ức.',
+];
 
 export default function VePage() {
+  const [activeChapter, setActiveChapter] = useState(0);
+  const [activeDialogue, setActiveDialogue] = useState(veDialogues[0]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveChapter((prev) => (prev + 1) % veChapters.length);
+    }, 5200);
+    return () => clearInterval(timer);
+  }, []);
+
+  const currentChapter = veChapters[activeChapter];
+
   return (
-    <div className="page-shell">
+    <div className="page-shell space-y-8">
       <PageHeading
         badge="Trang 06"
         title="Vè lớp em"
-        subtitle="Nhịp vè gọi thầy cô"
-        description="Chia 4 câu cho 4 bạn đọc nối tiếp. Có thể gõ phách nhịp 2 để tăng nhịp nhàng và tạo không khí lễ hội."
+        subtitle="Tiếng vè tri ân thầy cô"
+        description="Bài vè dài hơi với nhiều hoạt cảnh – món quà rộn ràng của lớp 3 Nam Hồng gửi tặng ngày 20/11."
         icon="🪘"
       />
 
       <section className="section-card fun-card">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">Chuẩn bị nhanh</p>
-        <h2 className="text-2xl font-semibold text-ink">4 bước để cả lớp sẵn sàng đọc vè</h2>
-        <div className="grid gap-4 md:grid-cols-2 mt-4">
-          {warmupSteps.map((step) => (
-            <div key={step.title} className="rounded-2xl border border-black/5 bg-white/80 p-4 shadow-card">
-              <p className="text-xs uppercase tracking-[0.3em] text-brand-sun">{step.cue}</p>
-              <h3 className="text-lg font-semibold text-ink mt-1">{step.title}</h3>
-              <p className="text-sm text-ink/80 leading-relaxed mt-2">{step.description}</p>
-            </div>
-          ))}
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">Mở đầu bài vè</p>
+        <div className="rounded-3xl border border-brand-sun/30 bg-white/80 p-6 shadow-card transition-all duration-500">
+          <p className="text-sm uppercase tracking-[0.3em] text-brand-sun">Khúc dạo</p>
+          <ul className="mt-4 space-y-2 text-lg text-ink/85">
+            {vePrelude.map((line) => (
+              <li key={line} className="flex items-start gap-2">
+                <span className="text-brand-sun">✿</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </section>
-
-      <section className="section-card fun-card">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">Bài vè chính</p>
-        <h2 className="text-2xl font-semibold text-ink">Lớp đọc đều – ý tình gửi thầy cô</h2>
-        <p className="text-ink/80 leading-relaxed mt-2">
-          Mỗi biểu tượng đại diện cho một bạn đọc. Khi đọc xong, bạn lùi nhẹ nửa bước để nhường sân khấu cho bạn kế tiếp.
-        </p>
-        <ol className="space-y-3 text-lg font-semibold text-ink list-decimal list-inside mt-4">
-          {veLines.map((line, index) => (
-            <li key={line} className="flex items-start gap-3">
-              <span className="text-2xl" aria-hidden>
-                {lineBadges[index % lineBadges.length]}
-              </span>
-              <span>{line}</span>
-            </li>
-          ))}
-        </ol>
       </section>
 
       <section className="section-card fun-card bg-gradient-to-br from-brand-sky/5 to-white">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">Cách thể hiện</p>
-        <h2 className="text-2xl font-semibold text-ink">Biến tấu vè để giờ đọc thêm sinh động</h2>
-        <div className="grid gap-4 md:grid-cols-3 mt-4">
-          {expressionIdeas.map((idea) => (
-            <div key={idea.title} className="rounded-2xl border border-dashed border-brand-sky/40 bg-white/80 p-4">
-              <h3 className="text-lg font-semibold text-ink">{idea.title}</h3>
-              <p className="text-sm text-ink/80 leading-relaxed mt-2">{idea.detail}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-brand-sky mt-3">{idea.action}</p>
-            </div>
-          ))}
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">Khổ vè đang tỏa sáng</p>
+        <div className="grid gap-6 md:grid-cols-[2fr,1fr]">
+          <div className="rounded-3xl border border-brand-sky/30 bg-white/85 p-6 shadow-card">
+            <p className="text-sm uppercase tracking-[0.3em] text-brand-sky">{currentChapter.title}</p>
+            <ul className="mt-3 space-y-2 text-ink/90">
+              {currentChapter.lines.map((line) => (
+                <li key={line} className="animate-pulse">{line}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex flex-col gap-3">
+            {veChapters.map((chapter, index) => {
+              const isActive = index === activeChapter;
+              return (
+                <button
+                  key={chapter.title}
+                  type="button"
+                  onClick={() => setActiveChapter(index)}
+                  aria-pressed={isActive}
+                  className={`rounded-2xl border px-4 py-3 text-left transition-all duration-300 focus-visible:ring-2 focus-visible:ring-brand-sky/70 ${
+                    isActive
+                      ? 'border-brand-sky bg-white shadow-brand-sky/30 shadow-lg -translate-y-0.5'
+                      : 'border-brand-sky/30 bg-white/70 hover:-translate-y-0.5'
+                  }`}
+                >
+                  <p className="font-semibold text-ink">{chapter.title}</p>
+                  <p className="text-sm text-ink/70 line-clamp-2">{chapter.lines[0]}</p>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
       <section className="section-card fun-card">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">Bảng cam kết</p>
-        <h2 className="text-2xl font-semibold text-ink">Vè hay hơn khi mỗi bạn giữ lời hứa nhỏ</h2>
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">Sân khấu đối thoại</p>
+        <div className="grid gap-6 md:grid-cols-[1.2fr,1fr] mt-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            {veDialogues.map((dialogue) => {
+              const isActive = activeDialogue.speaker === dialogue.speaker;
+              return (
+                <button
+                  key={dialogue.speaker}
+                  type="button"
+                  onClick={() => setActiveDialogue(dialogue)}
+                  aria-pressed={isActive}
+                  className={`rounded-2xl border p-4 text-left transition-all duration-300 focus-visible:ring-2 focus-visible:ring-brand-forest/60 ${
+                    isActive
+                      ? 'border-brand-forest bg-white shadow-brand-forest/30 shadow-lg -translate-y-1'
+                      : 'border-brand-forest/30 bg-white/70 hover:-translate-y-1'
+                  }`}
+                >
+                  <p className="text-xl">{dialogue.mood}</p>
+                  <p className="font-semibold text-ink mt-2">{dialogue.speaker}</p>
+                  <p className="text-sm text-ink/80 mt-1">{dialogue.quote}</p>
+                </button>
+              );
+            })}
+          </div>
+          <div className="rounded-3xl border border-brand-forest/30 bg-white/80 p-6 shadow-inner" aria-live="polite">
+            <p className="text-xs uppercase tracking-[0.3em] text-brand-forest/80">Lời thì thầm</p>
+            <p className="text-lg text-ink/90 leading-relaxed mt-3">{activeDialogue.detail}</p>
+            <p className="text-4xl mt-4 animate-bounce">{activeDialogue.mood}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-card fun-card bg-gradient-to-br from-brand-violet/10 to-white">
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">Hoạt ảnh sân khấu</p>
         <div className="grid gap-4 md:grid-cols-3 mt-4">
-          {pledgeCards.map((card) => (
-            <div key={card.title} className="rounded-2xl border border-black/5 bg-white/80 p-4 shadow-card">
-              <h3 className="text-lg font-semibold text-ink">{card.title}</h3>
-              <p className="text-sm text-ink/80 leading-relaxed mt-2">{card.statement}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-muted mt-3">{card.reminder}</p>
+          {veMiniScenes.map((scene) => (
+            <div key={scene.title} className="rounded-2xl border border-brand-violet/30 bg-white/80 p-4 shadow-card">
+              <p className="text-2xl">{scene.emoji}</p>
+              <p className="font-semibold text-ink mt-2">{scene.title}</p>
+              <p className="text-sm text-ink/80 mt-1">{scene.description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="section-card fun-card bg-gradient-to-br from-brand-sun/15 to-white">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">Mini challenge</p>
-        <h2 className="text-2xl font-semibold text-ink">Chơi nhanh sau khi đọc vè</h2>
-        <div className="grid gap-4 md:grid-cols-3 mt-4">
-          {miniChallenges.map((challenge) => (
-            <div key={challenge.name} className="rounded-2xl border border-brand-sun/30 bg-white/80 p-4">
-              <p className="text-xs uppercase tracking-[0.3em] text-brand-sun">{challenge.name}</p>
-              <p className="text-sm text-ink/80 leading-relaxed mt-2">Mục tiêu: {challenge.goal}</p>
-              <p className="text-sm text-ink/80 leading-relaxed mt-1">Phần thưởng: {challenge.reward}</p>
-            </div>
+      <section className="section-card fun-card text-center bg-gradient-to-br from-brand-sun/15 to-white">
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">Vè kết</p>
+        <div className="space-y-3 text-lg text-ink/85 mt-4">
+          {closingChimes.map((line) => (
+            <p key={line} className="animate-pulse">{line}</p>
           ))}
         </div>
+        <p className="text-3xl mt-6">🌸📜🌸</p>
       </section>
     </div>
   );
